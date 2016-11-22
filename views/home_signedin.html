@@ -1,0 +1,46 @@
+<div id="view">
+	<div class="content dense">
+		<div class="wrapper">
+			<div class="columns">
+				<div class="col-6 offset-3 t-col-8 t-offset-2 m-col-12 m-offset-0">
+					<div id="pointMsg" class="card amber white-text" style="margin: 0px 0px 24px 0px; display: none">
+						<div class="wrapper">
+							<b>Earn points by finishing a codelab!</b>
+						</div>
+					</div>
+					<div class="table">
+						<div class="cell"><b>My Points:</b> <span id="mypoints"></span></div>
+						<div class="cell right"><b>Ranking:</b> <span id="myranking">-</span></div>
+					</div>
+				</div>
+				<div class="col-6 offset-3 t-col-8 t-offset-2 m-col-12 m-offset-0 codelabs" id="listCodelabs">
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+	$(document).ready(function() {
+		App.Firebase.ref("users/"+App.User.loggedIn.uid).once("value", function(data) {
+			$(".loading").css("top", "80px");
+			if(!data.child("chapter").exists()) {
+				App.DialogBox.show();
+				App.DialogBox.disable();
+				App.DialogBox.el.attr("data-can-close", "false");
+				$.ajax({
+					url: "views/getchapter.html",
+					cache: true,
+					success: function(html) {
+						App.DialogBox.el.html(html);
+						App.DialogBox.enable();
+					},
+					error: function(xhrtemp, ajaxOptions, thrownError) {
+						App.Process.onError(xhrtemp, ajaxOptions, thrownError);
+					}
+				});
+			} else
+				App.User.updatePoints();
+			
+		});
+	})
+	</script>
+</div>

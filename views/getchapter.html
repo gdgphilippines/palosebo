@@ -1,0 +1,53 @@
+<div class="wrapper">
+	<h4>Hello!</h4>
+	<p>Welcome to the devfest codelabs! Before we start, please select a chapter.</p>
+	<style>
+		#listChapters {
+			max-height: 200px;
+			overflow: hidden;
+			overflow-y: scroll;
+		}
+		#listChapters::-webkit-scrollbar {
+			width: 0px;
+		}
+	</style>
+	<label style="padding-top: 0px;"><span>Search Chapter</span><input type="text" id="txtChapter" required></label>
+	<div id="listChapters">
+	</div>
+	<b><small>Please note that you cannot change this once you started.</small></b>
+	<p align="right">
+		<a id="selectChapter" class="selectChapter raised_button" disabled>Select</a>
+	</p>
+</div>
+<script>
+	$(document).ready(function() {
+		$(".loading").css("top", "-80px");
+		$(".selectChapter").removeAttr("id");
+		displayResult();
+		$("#txtChapter").keyup(displayResult);
+		$(document).on("click", "#listChapters label", function() {
+			$(".selectChapter").attr("id", "selectChapter");
+		})
+		function searchChapter(txt) {
+			var result = [];
+			var chapters = ["Algiers", "Aarhus", "AAUA", "Aba", "ABC", "Abeokuta", "Abidjan", "Abomey-Calavi", "Abuja", "Accra", "Adana", "Ado-Ekiti", "Agencias", "Agitel", "Ahmedabad", "Akure", "Al-Zaytoonah University", "Albacete", "Albuquerque", "Alexandria", "Allahabad", "Almaty", "Almeria", "Ames", "Amity University", "Amman", "Android Santiago", "Androititlan", "Angular Mexico", "Ankara", "Ann Arbor Android", "Annaba", "Antofagasta", "Aracaju", "Asturias", "Atlanta", "Auckland", "Augsburg", "Austin", "Azores", "Bacolod", "Baguio", "Baltimore", "Bamako", "Bambili", "Bamenda", "Bandjoun", "Bangalore", "Bangangté", "Bangla", "Barcelona", "Bari", "Baroda", "Bassam", "Bauchi", "Beer Sheva", "Beijing", "Beira", "Belo Horizonte", "Benin", "Bergen", "Berkeley", "Berlin", "Berlin Android", "Berlin Golang", "Bhubaneswar", "Bingham University", "Birgunj", "Bishkek", "BITS Pilani Dubai", "Bizerte", "Black Forest", "Blida", "BlrDroid", "Bodensee", "Bogor", "Bogotá", "Boise", "Bologna", "Boston", "Bouaké", "Boulder", "Brasília", "Brazza", "Brescia", "Bronx", "Brunei", "Brussels", "Bucharest", "Budapest", "Buea", "Buenos Aires", "Buffalo", "BUK", "Bukavu", "Burgos", "Busan", "Busitema", "BVP", "Cabreúva", "Cáceres", "Cagayan de Oro", "Cairo", "Cali", "Campania", "Campina Grande", "Campinas", "Cape Town", "Capital Region", "Caracas", "Cascavel", "Catania", "Cebu", "Central Florida", "Central Virginia", "České Budějovice", "Charleston", "Charlotte", "Chengdu", "Chennai", "Cherkassy", "Chicago", "Chicago West", "Chiclayo", "Chlef", "Chongqing", "Chugoku", "Cincinnati", "Cloud Belgium", "Cloud MX", "Cloud Paris", "Cluj-Napoca", "Cochabamba", "Cochin", "Code d'Armor", "Coimbatore", "Coimbra", "Columbia", "Columbus", "Cosenza", "Covenant University", "Curitiba", "Cusco", "ČVUT Prague", "DA-IICT Gandhinagar", "Dallas", "Dar es Salaam", "Delta University", "Denver", "Depok", "Detroit", "Dhaka", "Dili", "Dnipropetrovsk", "Doha", "Douala", "Dublin", "Duque de Caxias", "Düsseldorf", "Dutch Android User Group", "Düzce", "Ebolowa", "Edirne", "Egerton", "Ekaterinburg", "Ekiti State University", "ENSI", "Entre Rios", "Enugu", "Eskişehir", "Espoo", "Fayoum", "Federal University Dutse", "Feira de Santana", "Firenze", "Fortaleza", "Foumban", "Foz do Iguaçu", "Francisco Beltrão", "Freiburg", "Fresno", "Fribourg", "FUNAAB", "Fuzhou", "Gaborone", "Galwa", "Gandhinagar", "Ganzhou", "GAUG", "Gaza", "Gela", "Geneva", "Genova", "George Town", "German University in Cairo", "Gigcity", "Girona", "Goa", "Goiânia", "Goma", "Granada", "Greenwich", "Guangzhou", "Guatemala", "Gulu", "Halsema", "Hamburg", "Hamburg Android", "Hampton Roads", "Hangzhou", "Hanoi", "Harare", "Harare Institute of Technology", "Hefei", "Herakion", "Hong Kong", "Houston", "Hudson Valley", "Hyderabad", "Iasi", "Ibadan", "Ica", "IIT Guwahati", "IIT Kanpur", "Imperatriz", "Incheon", "Indore", "INPHB", "Ishinomaki", "Islamabad (Margalla)", "Istanbul", "Itumbiara", "Izmir", "Jaen", "Jakarta", "Jalandhar", "Jaraguá do Sul", "Jataí", "Jihlava", "JIIT Noida", "Jinja", "JKUAT", "João Pessoa", "Jodhpur", "Jogjakarta", "JSIIT", "Juiz de Fora", "Juliaca", "Kabarak", "Kaduna", "Kaduna State University", "Kaliningrad", "Kampala", "Kano", "Kansas City", "Karlsruhe", "Kashmir", "Kathmandu", "Katsina", "Kaunas", "Kazan", "Kenya Methodist University", "Kigali", "Kimathi University", "Kisantu", "Kisumu", "KNUST", "Kobe", "Kocaeli", "Konya", "Korea Android", "Korea Golang", "Korea WebTech", "Kota Kinabalu", "Kozhikode", "KPI", "Kraków", "Krasnoyarsk", "Kremenchuk", "Kuala Lumpur", "Kütahya", "Kyiv-Center", "Kyoto", "Kyushu", "La Paz", "La Rioja", "Lafia", "Laghouat", "Lagos", "Lahore", "Lanzhou", "Las Vegas", "Lavras", "Legon", "Les Rosiers", "Libreville", "Lille", "Lima", "Limbe", "Lisbon", "Liverpool", "Lleida", "LNMIIT Jaipur", "Lome", "London", "Los Angeles", "Louisville", "Lublin", "Lubum", "Lusaka", "Lviv", "Maceió", "Madrid", "Madurai", "Makerere", "Makhachkala", "Málaga", "Malta", "Manabí", "Managua", "Manaus", "Manipal", "Maputo", "Maringá", "Maroua", "Mascara", "Mbale", "Mbarara", "Melbourne", "Menorca", "Mercer University", "Miage Gi Cocody", "Milan", "Milton Keynes", "Minia", "Minna", "Minsk", "Misantla", "MMUST", "Modesto", "Moldova", "Mombasa", "Monastir", "Monterrey", "Montes Claros", "Montevideo", "Montreal Android", "Morelia", "Moscow", "MUBS", "Mumbai", "Muncie", "Munich", "Munich Android", "Munich Golang", "Murcia", "Mwanza", "Nablus", "Nairobi", "Namur Android", "Nanjing", "Nanning", "Nantes", "NanYang", "Nashville", "Natal", "Ndéré", "Nebrodi", "Netherlands", "Neuquén", "New Delhi", "New Hampshire", "New Haven", "New York", "Newark", "Nice", "NIT Surat", "Nizhny Novgorod", "Njikoka", "Nkongsamba", "Norte RS", "North East", "North Jersey", "Northern Colorado", "Nouakchott", "Novi Sad", "Novosibirsk", "Oakdale", "OAU", "Odessa", "OKC", "Oko", "Omaha", "Omsk", "Open Lima", "Oran", "Ostrava", "Ostwestfalen Lippe", "Ourense", "Palermo", "Panama City", "Pardubice", "Paris", "Paris Android", "Pato Branco", "Paulo de Frontin", "PDX", "Penza", "Perm", "Petrópolis", "Petrozavodsk", "Philadelphia", "Philippines", "Phoenix", "Pisa", "Pitesti", "Plzeň", "Poltava", "Polymer México", "Port Harcourt", "Porto", "Prague", "Pretoria", "Puerto Rico", "Pune", "Pura Vida", "Rajkot", "Reading and Thames Valley", "Recife", "Regensburg", "Reggio Calabria", "Reggio Emilia", "Rhein-Main", "Ribeirão Preto", "Riga", "Rio de Janeiro", "Rio de la Plata", "Rio Verde", "Rishon Le Zion", "Roma Lab", "Rostov", "Ryazan", "Rzeszów", "Sacramento", "Salamanca", "Salta", "Salvador", "Samara", "San Francisco", "Sana'a", "Santa Cruz", "Santiago", "Santo Domingo", "São João da Boa Vista", "São José dos Campos", "São Luis", "Sardegna", "SBA", "Seattle", "Semarang", "Senador Canedo", "Seoul", "Serra Gaúcha", "SETTAT", "Sevilla", "Sfax", "Shanghai", "Sharjah", "Shenzhen", "Shikoku", "Shinshu", "Shivamogga", "Silicon Valley", "Singapore", "Sivas", "SLAU", "Sofia", "Sonargaon", "Soongsil University", "Sorocaba", "Sousse", "Space Coast", "Sri Lanka", "St. Louis", "St. Petersburg", "Stockholm", "Strathmore", "Sudbury", "Sul Fluminense", "Sun Coast", "Surabaya", "Suzhou", "Sydney", "Taipei", "TAMU", "Taraba", "Tarija", "Tarragona", "Tbilisi", "Techno", "Tekirdağ", "Tenerife", "Ternopil", "Thessaloniki", "Thiruvanathapuram", "Tianjin", "Tijuana", "Tlemcen", "Tokyo", "Toledo", "Torino", "Toronto", "Toulouse Android", "Tours", "Trabzon", "Trento", "Três Rios", "Triangle", "Tucson", "Tunis", "Twin Cities", "Uberaba", "UCU", "Udaipur", "Ufa", "UNAM", "Unilag", "University of Cape Coast", "UNN", "Utah", "Uyo", "Uzhhorod", "Valparaiso", "Vassouras", "Venezia", "Vienna", "Vientiane", "Vietnam", "Vigo", "Vijayawada", "Villahermosa", "Visalia", "VIT Vellore", "Vladivostok", "Voronezh", "VUT", "WadSouf", "Warsaw", "Washington DC", "Waterloo", "Wellington", "Wilmington", "Windhoek", "WISE University", "Wits", "Women Lima", "WonderCoders", "Wuhan", "Xi'an", "Xiamen", "Yamoussoukro", "Yangon", "Yerevan", "Zagreb", "Zamboanga", "Žďár nad Sázavou", "Zhangjiakou", "Zhengzhou", "Zhuhai", "Zürich"];
+			for (var j=0; j<chapters.length; j++) {
+				if (chapters[j].match(txt))
+					result.push(chapters[j])
+			}
+			return result;
+		}
+		function displayResult() {
+			var x = searchChapter($("#txtChapter").val());
+
+			$("#listChapters").html('');
+			for(var i = 0; i < x.length; i++) {
+				$("#listChapters").append('<label><input type="radio" name="chapter" value="GDG '+x[i]+'"><i class="material-icons"></i>GDG '+x[i]+'</label>')
+			}
+			App.DialogBox.reposition();
+			$(".selectChapter").removeAttr("id");
+		}
+	})
+	
+	Input.ready();
+</script>

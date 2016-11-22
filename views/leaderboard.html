@@ -1,0 +1,57 @@
+<div id="view">
+	<div class="content">
+		<div class="wrapper">
+			<div class="columns">
+				<h1 class="col-8 offset-2 t-col-10 t-offset-1 m-col-12 m-offset-0" style="margin-top: 0px; margin-bottom: 0">Chapter Leaderboard</h1>
+				<div class="col-8 offset-2 t-col-10 t-offset-1 m-col-12 m-offset-0">
+					<label><span>Google Tech</span><select name="codelab">
+						<option value="score">Overall</option>
+						<option value="web">Web</option>
+						<option value="firebase">Firebase</option>
+						<option value="android">Android</option>
+						<option value="vr">Virtual Reality</option>
+						<option value="cloud">Cloud</option>
+					</select></label>
+				</div>
+				<div class="col-8 offset-2 t-col-10 t-offset-1 m-col-12 m-offset-0" id="leaderboardMsg">
+					<div class="card">
+						<div class="wrapper">
+							There are no users with points.
+						</div>
+					</div>
+				</div>
+				<div class="col-8 offset-2 t-col-10 t-offset-1 m-col-12 m-offset-0 ranking">
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function() {
+			App.Firebase.ref("users/"+App.User.loggedIn.uid).once("value", function(data) {
+				$(".loading").css("top", "80px");
+				if(!data.child("chapter").exists()) {
+					App.DialogBox.show();
+					App.DialogBox.disable();
+					App.DialogBox.el.attr("data-can-close", "false");
+					$.ajax({
+						url: "views/getchapter.html",
+						cache: true,
+						success: function(html) {
+							App.DialogBox.el.html(html);
+							App.DialogBox.enable();
+						},
+						error: function(xhrtemp, ajaxOptions, thrownError) {
+							App.Process.onError(xhrtemp, ajaxOptions, thrownError);
+						}
+					});
+				} else
+					App.Leaderboard.load($("select[name=codelab]").val());
+				
+			});
+			$("select[name=codelab]").change(function() {
+				App.Leaderboard.load($(this).val());
+			})
+			Input.ready();
+		})
+	</script>
+</div>

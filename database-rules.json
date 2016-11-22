@@ -1,0 +1,71 @@
+{
+  "rules": {
+    "codelabs": {
+      ".read": "true",
+      ".write": "false"
+    },
+    "users": {
+      ".read": "true",
+      ".write": "false",
+      "$uid": {
+        ".read": "true",
+        ".write": "auth.uid == $uid",
+        "chapter": {
+          ".write": "!data.exists() && auth.uid == $uid"
+        },
+        "displayName": {
+          ".write": "auth.uid == $uid"
+        },
+        "photoURL": {
+          ".write": "auth.uid == $uid"
+        },
+        "android": {
+          ".validate": "newData.isNumber() && newData.val() >= 0",
+          ".write": "auth.uid == $uid"
+        },
+        "cloud": {
+          ".validate": "newData.isNumber() && newData.val() >= 0",
+          ".write": "auth.uid == $uid"
+        },
+        "firebase": {
+          ".validate": "newData.isNumber() && newData.val() >= 0",
+          ".write": "auth.uid == $uid"
+        },
+        "vr": {
+          ".validate": "newData.isNumber() && newData.val() >= 0",
+          ".write": "auth.uid == $uid"
+        },
+        "web": {
+          ".validate": "newData.isNumber() && newData.val() >= 0",
+          ".write": "auth.uid == $uid"
+        },
+        "score": {
+          ".validate": "newData.isNumber() && newData.val() >= 0",
+          ".write": "auth.uid == $uid"
+        },
+        "codelabs": {
+          "$codelab_key": {
+            "cA": {
+              ".validate": "!data.exists() && newData.isNumber() && newData.val() >= 0 && newData.val() <= 5"
+            },
+            "score": {
+              ".validate": "!data.exists() && newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
+            },
+            "start_quiz": {
+              ".validate": "!data.exists()"
+            },
+            "start_time": {
+              ".validate": "!data.exists()"
+            },
+            "end_quiz": {
+              ".validate": "!data.exists()"
+            },
+            "end_time": {
+              ".validate": "!data.exists()"
+            }
+          }
+        }
+      }
+    }
+  }
+}

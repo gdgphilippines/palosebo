@@ -1,66 +1,47 @@
 # palosebo
 Source code for the Gamified Codelabs. Built using Firebase.
 
-**Setting up you gamified codelabs**
+##Setting up you gamified codelabs
 
 1. Fork gdgphilippine's repository, `palosebo`
-
 	```
 	git fork https://github.com/gdgphilippines/palosebo.git
 	```
 
-2. Create a new Firebase app project.
+2. Create a new Firebase app project. 
+  1. Go to `https://console.firebase.google.com/` 
+  2. Click `Create New Project` 
+  3. Fill the details and click `Create Project` 
 
-	a. Go to `https://console.firebase.google.com/`
+3. Configure your project. 
+  1. Upon opening your new project, click `Add Firebase to your web app` 
+  2. Copy the code from the line `var config = {` until `firebase.initializeApp(config);` 
+  3. Paste the code in `includes/scripts/config.js` 
+  4. Save! 
 
-	b. Click `Create New Project`
+4. Configure your Firebase app project. 
+  1. Authentication 
+    1. Go to `Authentication` section on your Firebase console. 
+    2. Click the `Set up Sign-in method`. 
+    3. Enable Google as a sign-in provider. 
+    4. Save! 
 
-	c. Fill the details and click `Create Project`
+  2. Database 
+    1. Go to `Database` section on your Firebase module. 
+    2. Under `Data` tab, click the three vertical dots icon and select `Import JSON`. 
+    3. Upload the `database-data.json`. 
+    4. Click `Import`. 
 
-3. Configure your project.
+  3. Rules 
+    1. Go to `Database` section on your Firebase module. 
+    2. Go to the `Rules` tab. 
+    3. Copy the contents of `database-rules.json`. 
+    4. Paste it to the text editor in Firebase. 
+    5. Click `Publish`. 
 
-	a. Upon opening your new project, click `Add Firebase to your web app`
+5. Deploy the app to your website! 
 
-	b. Copy the code from the line `var config = {` until `firebase.initializeApp(config);`
+6. Done! 
 
-	c. Paste the code in `includes/scripts/config.js`
 
-	d. Save!
-
-4. Configure your Firebase app project.
-
-	a. Authentication
-
-		i. Go to `Authentication` section on your Firebase console.
-
-		ii. Click the `Set up Sign-in method`.
-
-		iii. Enable Google as a sign-in provider.
-
-		iv. Save!
-
-	b. Database
-
-		i. Go to `Database` section on your Firebase module.
-
-		ii. Under `Data` tab, click the three vertical dots icon and select `Import JSON`.
-
-		iii. Upload the `database-data.json`.
-
-		iv. Click `Import`.
-
-	c. Rules
-
-		i. Go to `Database` section on your Firebase module.
-
-		ii. Go to the `Rules` tab.
-
-		iii. Copy the contents of `database-rules.json`.
-
-		iv. Paste it to the text editor in Firebase.
-
-		v. Click `Publish`.
-
-5. Deploy the app to your website!
-
-6. Done!
+##Adding a new codelab session

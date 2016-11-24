@@ -42,6 +42,3 @@ Source code for the Gamified Codelabs. Built using Firebase.
 5. Deploy the app to your website! 
 
 6. Done! 
-
-
-##Adding a new codelab session
